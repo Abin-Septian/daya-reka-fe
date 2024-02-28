@@ -2,25 +2,16 @@ import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { customerData } from "@/data/customer";
+// import { customerData } from "@/data/customer";
 import { cn } from "@/lib/utils";
-import {
-  PenLine,
-  ShieldAlert,
-  ShieldBan,
-  ShieldCheckIcon,
-  ShieldEllipsis,
-  Trash,
-} from "lucide-react";
+import { PenLine, ShieldCheckIcon, Trash } from "lucide-react";
 
-export function DataTable() {
+export function DataTable({ data }: any) {
   return (
     <Table className="min-w-[1200px]">
       <TableHeader>
@@ -33,25 +24,35 @@ export function DataTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {customerData.map((data, index: number) => (
+        {data.map((data: any, index: number) => (
           <TableRow key={index}>
-            <TableCell className="font-semibold">{data.customerName}</TableCell>
+            <TableCell className="font-semibold">
+              {data.customer.name}
+            </TableCell>
             <TableCell>
               <Button
                 variant={"secondary"}
                 className={cn(
-                  "font-semibold",
-                  data.level === "Warga" && "text-orange-500 bg-orange-500/5",
-                  data.level === "Juragan" && "text-sky-500 bg-sky-500/5",
-                  data.level === "Sultan" && "text-green-500 bg-green-500/5",
-                  data.level === "Konglomerat" && "text-purple-500 bg-purple-500/5",
+                  "font-semibold capitalize",
+                  data.customer.level === "warga" &&
+                    "bg-orange-500/5 text-orange-500",
+                  data.customer.level === "juragan" &&
+                    "bg-sky-500/5 text-sky-500",
+                  data.customer.level === "sultan" &&
+                    "bg-green-500/5 text-green-500",
+                  data.customer.level === "konglomerat" &&
+                    "bg-purple-500/5 text-purple-500",
                 )}
               >
-                {data.level}
+                {data.customer.level}
               </Button>
             </TableCell>
-            <TableCell className="font-semibold">{data.favMenu}</TableCell>
-            <TableCell className="font-semibold">{data.total}</TableCell>
+            <TableCell className="font-semibold">
+              {data.customer.fav_item}
+            </TableCell>
+            <TableCell className="font-semibold">
+              IDR {data.total.toLocaleString()}
+            </TableCell>
             <TableCell>
               <div className="flex w-full gap-2">
                 <Button variant={"secondary"} className="gap-2">
